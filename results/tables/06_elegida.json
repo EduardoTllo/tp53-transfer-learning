@@ -1,0 +1,11 @@
+{
+  "capas": [
+    256
+  ],
+  "tasa": 0.0003,
+  "lote": 16,
+  "dropout": 0.3,
+  "optimizador": "sgd",
+  "epocas": 19,
+  "auc_validacion": 0.9431
+}

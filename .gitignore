@@ -1,0 +1,18 @@
+# Data are downloaded with scripts/download_data.py and built by notebooks 01-02.
+data/*
+!data/experiment/
+data/experiment/*
+# Small result files are kept so that notebook 09 can run without the long notebooks.
+!data/experiment/examenes.csv
+!data/experiment/repeticiones.csv
+!data/experiment/auc_elasticnet.csv
+!data/experiment/auc_red.csv
+!data/experiment/prob_elasticnet.parquet
+!data/experiment/prob_red.parquet
+!data/experiment/ensayo_auc.csv
+
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+.DS_Store
+khipu/*.out

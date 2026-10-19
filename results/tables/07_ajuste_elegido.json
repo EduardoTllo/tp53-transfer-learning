@@ -1,0 +1,13 @@
+{
+  "ajuste_fino": {
+    "tasa": 1e-05,
+    "epocas": 10,
+    "auc_promedio": 0.864625
+  },
+  "desde_cero": {
+    "tasa": 0.001,
+    "epocas": 100,
+    "auc_promedio": 0.77795
+  },
+  "epocas_red_tcga": 6
+}
