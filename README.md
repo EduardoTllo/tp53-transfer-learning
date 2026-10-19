@@ -228,9 +228,16 @@ It is important to mention that the networks run on **Keras 3 with PyTorch** (`K
 
 ## References
 
-- Ben Cohen et al. (2025). STAMP. *Computers in Biology and Medicine*. doi:10.1016/j.compbiomed.2024.109491
-- Foltz et al. (2023). PMID 36841852.
-- Hanczar B, Bourgeais V, Zehraoui F (2022). Assessment of deep learning and transfer learning for cancer prediction based on gene expression data. *BMC Bioinformatics* 23:262. doi:10.1186/s12859-022-04807-7
-- López-García G, Jerez JM, Franco L, Veredas FJ (2020). Transfer learning with convolutional neural networks for cancer survival prediction using gene-expression data. *PLoS One* 15(3):e0230536. doi:10.1371/journal.pone.0230536
-- Miller et al. (2011). *BMC Bioinformatics* 12:322. doi:10.1186/1471-2105-12-322
-- Sabbatini G et al. (2026). *Computers in Biology and Medicine* 206:111618. doi:10.1016/j.compbiomed.2026.111618
+All references were checked in PubMed (October 2026).
+
+1. Ben Cohen G, Yaacov A, Ben Zvi Y, Loutati R, Lishinsky N, Landau J, Hope T, Popovzter A, Rosenberg S. Graph convolution networks model identifies and quantifies gene and cancer specific transcriptome signatures of cancer driver events (STAMP). *Comput Biol Med*. 2025;185:109491. doi:[10.1016/j.compbiomed.2024.109491](https://doi.org/10.1016/j.compbiomed.2024.109491)
+2. Foltz SM, Greene CS, Taroni JN. Cross-platform normalization enables machine learning model training on microarray and RNA-seq data simultaneously. *Commun Biol*. 2023;6(1):222. doi:[10.1038/s42003-023-04588-6](https://doi.org/10.1038/s42003-023-04588-6)
+3. Hanczar B, Bourgeais V, Zehraoui F. Assessment of deep learning and transfer learning for cancer prediction based on gene expression data. *BMC Bioinformatics*. 2022;23(1):262. doi:[10.1186/s12859-022-04807-7](https://doi.org/10.1186/s12859-022-04807-7)
+4. Krug K, Jaehnig EJ, Satpathy S, et al. Proteogenomic landscape of breast cancer tumorigenesis and targeted therapy. *Cell*. 2020;183(5):1436-1456.e31. doi:[10.1016/j.cell.2020.10.036](https://doi.org/10.1016/j.cell.2020.10.036)
+5. López-García G, Jerez JM, Franco L, Veredas FJ. Transfer learning with convolutional neural networks for cancer survival prediction using gene-expression data. *PLoS One*. 2020;15(3):e0230536. doi:[10.1371/journal.pone.0230536](https://doi.org/10.1371/journal.pone.0230536)
+6. Miller JA, Cai C, Langfelder P, Geschwind DH, Kurian SM, Salomon DR, Horvath S. Strategies for aggregating gene expression data: the collapseRows R function. *BMC Bioinformatics*. 2011;12:322. doi:[10.1186/1471-2105-12-322](https://doi.org/10.1186/1471-2105-12-322)
+7. Sabbatini G, Lombardi AM, Bianco S, Falco P, Toma M, Manganaro L. Deep learning with limited data: a transfer learning approach for transcriptomic survival prediction. *Comput Biol Med*. 2026;206:111618. doi:[10.1016/j.compbiomed.2026.111618](https://doi.org/10.1016/j.compbiomed.2026.111618)
+8. Triantafyllidis CP, Aguas R. Causality-aware graph neural networks for functional stratification and phenotype prediction at scale. *NPJ Syst Biol Appl*. 2025;11(1):92. doi:[10.1038/s41540-025-00567-1](https://doi.org/10.1038/s41540-025-00567-1)
+9. Yang Z, Zhou D, Huang J. Identifying explainable machine learning models and a novel SFRP2+ fibroblast signature as predictors for precision medicine in ovarian cancer. *Int J Mol Sci*. 2023;24(23):16942. doi:[10.3390/ijms242316942](https://doi.org/10.3390/ijms242316942)
+
+Where they are used: [1] STAMP, the closest previous work on TP53 in breast cancer, and the published reference for TCGA → METABRIC (notebook 07). [3], [5] and [7] are the transfer learning studies that guided the design. [2] is the reason why the z-score is the main normalization and its weak point (notebook 02). [4] is the source of the PAM50 subtype of CPTAC (notebook 01). [6] is the rule to keep one row per gene (notebook 02). [3], [7], [8] and [9] set the hyperparameter values tested in notebook 06.
