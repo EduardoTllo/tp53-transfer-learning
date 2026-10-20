@@ -2,7 +2,6 @@
 
 This repository contains the code, results and figures of a study on **transfer learning for TP53 mutation prediction in breast cancer**. The study asks whether a model trained on large public cohorts can be moved to a new, small cohort, and how many local patients that new cohort needs. The main outcome is not only how well the models predict. It is how **stable** they are: how much the result changes depending on which few patients were used to train them.
 
-Author: Eduardo Tello.
 
 ## Contents
 1. [The question](#the-question)
