@@ -117,11 +117,11 @@ Applying directly (strategies 1 and 4) uses **no local patient with a known TP53
 
 ### Stability
 
-![Variation across repetitions, centered by exam](results/figures/09_boxes_n10_centered.png)
+![AUC of each repetition with 10 local patients](results/figures/09_boxes_n10.png)
 
-**Figure 3. AUC of each repetition minus the mean of its exam (n = 10).** Each point is one repetition and its color is the exam. The width of each box is the variation that the SD measures.
+**Figure 3. AUC on the exam of each repetition, with 10 local patients.** Each point is one repetition (500 per strategy: 5 exams × 100) and its color is the exam. A short box means that the result barely depends on which 10 patients were drawn.
 
-The main fine-tuning setting appears as a line at 0. The network does change: its loss on the 10 local patients goes from 0.81 to 0.69. But the probability of each exam patient changes only in the fourth decimal, so the order of the patients, and therefore the AUC, barely moves.
+The network from scratch and local ElasticNet spread over a wide range: their AUC can go from about 0.5 to 0.9 depending on the 10 patients. Fine-tuning forms one flat band per exam. The bands are at different heights because each exam has 40 different patients, not because of the local patients. The network does change: its loss on the 10 local patients goes from 0.81 to 0.69. But the probability of each exam patient changes only in the fourth decimal, so the order of the patients, and therefore the AUC, barely moves. Notebook 09 also has a version of this figure centered by exam (`results/figures/09_boxes_n10_centered.png`).
 
 ![SD reduction of fine-tuning](results/figures/09_sd_reduction.png)
 
