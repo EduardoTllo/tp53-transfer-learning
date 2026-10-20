@@ -30,7 +30,7 @@ Here, a **local patient** is a patient of the new cohort whose TP53 status is kn
 
 1. **A model trained on the source cohorts works in a new cohort without any adjustment.** Applied directly, the network reached an AUC of 0.933 in CPTAC and 0.866 in SMC 2018. ElasticNet gave almost the same (0.930 and 0.865).
 2. **Adjusting that model with 10 to 80 local patients does not raise the AUC.** The change was 0.004 or less, with the network and with ElasticNet.
-3. **Fine-tuning a pretrained network is more stable than ElasticNet trained on the source plus the local patients.** Both models learn from the source and from the same local patients. With 10 local patients, the SD of the AUC of fine-tuning was 91% smaller in CPTAC (0.0009 vs 0.0100) and 89% smaller in SMC 2018 (0.0017 vs 0.0151). The difference was significant in both cohorts.
+3. **Fine-tuning a pretrained network is more stable than ElasticNet trained on the source + the local patients.** Both models learn from the source and from the same local patients. With 10 local patients, the SD of the AUC of fine-tuning was 91% smaller in CPTAC (0.0009 vs 0.0100) and 89% smaller in SMC 2018 (0.0017 vs 0.0151). The difference was significant in both cohorts.
 4. **Training only with the local patients gives the lowest AUC and the most variable result.** It did not reach the AUC of applying the source model directly, even with 40 (CPTAC) or 80 (SMC) patients.
 
 ## Data
