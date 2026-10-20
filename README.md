@@ -30,7 +30,7 @@ Here, a **local patient** is a patient of the new cohort whose TP53 status is kn
 
 1. **A model trained on the source cohorts works in a new cohort without any adjustment.** Applied directly, the network reached an AUC of 0.933 in CPTAC and 0.866 in SMC 2018. ElasticNet gave almost the same (0.930 and 0.865).
 2. **Adjusting that model with 10 to 80 local patients does not raise the AUC.** The change was 0.004 or less, with the network and with ElasticNet.
-3. **Fine-tuning a pretrained network is more stable than ElasticNet trained on the source + the local patients.** Both models learn from the source and from the same local patients. With 10 local patients, the SD of the AUC of fine-tuning was 91% smaller in CPTAC (0.0009 vs 0.0100) and 89% smaller in SMC 2018 (0.0017 vs 0.0151). The difference was significant in both cohorts (Pitman-Morgan test in each of the 5 exams, combined with the Stouffer method; p < 1e-300).
+3. **Fine-tuning a pretrained network is more stable than ElasticNet trained on the source + the local patients.** Both models learn from the source and from the same local patients. With 10 local patients, the SD of the AUC of fine-tuning was 91% smaller in CPTAC (0.0009 vs 0.0100) and 89% smaller in SMC 2018 (0.0017 vs 0.0151). The difference was significant in each of the 5 exams of both cohorts (Pitman-Morgan test, p < 0.05).
 4. **Training only with the local patients gives the lowest AUC and the most variable result.** It did not reach the AUC of applying the source model directly, even with 40 (CPTAC) or 80 (SMC) patients.
 
 ## Data
@@ -92,8 +92,8 @@ Applying directly (strategies 1 and 4) uses **no local patient with a known TP53
 **Statistics.**
 - **Main outcome:** SD of the AUC across the 100 repetitions, on the same exam.
 - **Primary comparisons** (n = 10): strategy 2 vs 3 (does pretraining stabilize the network?) and strategy 2 vs 6 (is the network more stable than ElasticNet with the source?).
-- **Test:** Pitman-Morgan in each exam (it compares two paired SDs), and the 5 exams joined with the Stouffer method, two-sided. The other comparisons are corrected with Benjamini-Hochberg.
-- **Statistical power:** with 100 repetitions, one exam detects a 30% difference in SD with 80% power. The 5 exams together detect about 15%.
+- **Test:** Pitman-Morgan in each exam (it compares two paired SDs), two-sided. Each exam is reported separately: in how many of the 5 exams the difference is significant (p < 0.05), and in which direction. The exams are not combined into one p value, because they share patients, the source model and the network seeds, so they are not independent. The other comparisons are corrected with Benjamini-Hochberg.
+- **Statistical power:** with 100 repetitions, one exam detects a 30% difference in SD with 80% power.
 
 ## Results
 
@@ -137,7 +137,7 @@ The network from scratch and local ElasticNet spread over a wide range: their AU
 | SMC 2018 | 5. ElasticNet local | 99% (98 to 99) | 93% (90 to 95) |
 | SMC 2018 | 6. ElasticNet source + local | 89% (81 to 92) | 42% (24 to 56) |
 
-All primary comparisons were significant in both cohorts (p < 1e-300 with the main setting). With the sensitivity setting, fine-tuning vs ElasticNet source + local gave p = 0.0003 in CPTAC, but one of the 5 exams went in the other direction (fine-tuning varied 54% more).
+With the main setting, the four primary comparisons were significant in each of the 5 exams of both cohorts (Pitman-Morgan, p < 0.05). With the sensitivity setting, fine-tuning vs ElasticNet source + local was significant in 5 of 5 exams in SMC. In CPTAC it was mixed: 4 exams significant in favor of fine-tuning and 1 significant against it (in that exam fine-tuning varied 54% more).
 
 ### Classification
 
