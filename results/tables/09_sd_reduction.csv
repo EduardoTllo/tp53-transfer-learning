@@ -1,13 +1,13 @@
-setting,cohort,comparison,n,SD strategy a,SD strategy b,SD ratio (b / a),SD reduction (%),min reduction (%),max reduction (%),z exam 1,z exam 2,z exam 3,z exam 4,z exam 5,combined Z,p
-main (learning rate 1e-5),CPTAC,2 vs 3,10,0.0,0.1,123.0,99.2,99.0,99.6,45.5,49.7,45.1,45.8,55.1,107.9,0.0
-main (learning rate 1e-5),CPTAC,2 vs 5,10,0.0,0.2,165.7,99.4,99.1,99.8,47.0,52.6,48.7,49.3,59.7,115.0,0.0
-main (learning rate 1e-5),CPTAC,2 vs 6,10,0.0,0.0,10.6,90.5,78.2,95.5,15.6,30.7,20.5,23.7,29.6,53.7,0.0
-main (learning rate 1e-5),SMC 2018,2 vs 3,10,0.0,0.1,54.3,98.2,97.2,99.0,45.6,35.1,39.6,38.3,37.7,87.7,0.0
-main (learning rate 1e-5),SMC 2018,2 vs 5,10,0.0,0.1,67.4,98.5,97.9,99.1,46.7,38.1,41.8,40.4,40.6,92.8,0.0
-main (learning rate 1e-5),SMC 2018,2 vs 6,10,0.0,0.0,8.8,88.6,81.2,91.7,24.5,18.7,23.4,16.5,23.9,47.8,0.0
-sensitivity (learning rate 1e-4),CPTAC,2 vs 3,10,0.0,0.1,13.3,92.5,88.1,94.0,28.3,22.0,27.7,28.0,27.9,59.9,0.0
-sensitivity (learning rate 1e-4),CPTAC,2 vs 5,10,0.0,0.2,17.9,94.4,90.9,96.2,29.2,25.0,31.2,31.7,32.4,66.8,0.0
-sensitivity (learning rate 1e-4),CPTAC,2 vs 6,10,0.0,0.0,1.1,12.4,-54.0,37.7,-4.4,2.2,2.8,5.3,2.2,3.7,0.0
-sensitivity (learning rate 1e-4),SMC 2018,2 vs 3,10,0.0,0.1,10.7,90.7,86.1,94.4,30.2,19.6,22.2,24.7,22.1,53.1,0.0
-sensitivity (learning rate 1e-4),SMC 2018,2 vs 5,10,0.0,0.1,13.3,92.5,89.6,95.1,31.0,22.3,24.0,26.6,24.8,57.6,0.0
-sensitivity (learning rate 1e-4),SMC 2018,2 vs 6,10,0.0,0.0,1.7,42.3,24.0,55.9,8.5,3.4,6.2,2.9,8.7,13.3,0.0
+setting,cohort,comparison,n,SD strategy a,SD strategy b,SD ratio (b / a),SD reduction (%),min reduction (%),max reduction (%),exams significant for a (of 5),exams significant against a (of 5),z exam 1,z exam 2,z exam 3,z exam 4,z exam 5,p exam 1,p exam 2,p exam 3,p exam 4,p exam 5
+main (learning rate 1e-5),CPTAC,2 vs 3,10,0.0,0.1,123.0,99.2,99.0,99.6,5,0,45.5,49.7,45.1,45.8,55.1,0.0,0.0,0.0,0.0,0.0
+main (learning rate 1e-5),CPTAC,2 vs 5,10,0.0,0.2,165.7,99.4,99.1,99.8,5,0,47.0,52.6,48.7,49.3,59.7,0.0,0.0,0.0,0.0,0.0
+main (learning rate 1e-5),CPTAC,2 vs 6,10,0.0,0.0,10.6,90.5,78.2,95.5,5,0,15.6,30.7,20.5,23.7,29.6,0.0,0.0,0.0,0.0,0.0
+main (learning rate 1e-5),SMC 2018,2 vs 3,10,0.0,0.1,54.3,98.2,97.2,99.0,5,0,45.6,35.1,39.6,38.3,37.7,0.0,0.0,0.0,0.0,0.0
+main (learning rate 1e-5),SMC 2018,2 vs 5,10,0.0,0.1,67.4,98.5,97.9,99.1,5,0,46.7,38.1,41.8,40.4,40.6,0.0,0.0,0.0,0.0,0.0
+main (learning rate 1e-5),SMC 2018,2 vs 6,10,0.0,0.0,8.8,88.6,81.2,91.7,5,0,24.5,18.7,23.4,16.5,23.9,0.0,0.0,0.0,0.0,0.0
+sensitivity (learning rate 1e-4),CPTAC,2 vs 3,10,0.0,0.1,13.3,92.5,88.1,94.0,5,0,28.3,22.0,27.7,28.0,27.9,0.0,0.0,0.0,0.0,0.0
+sensitivity (learning rate 1e-4),CPTAC,2 vs 5,10,0.0,0.2,17.9,94.4,90.9,96.2,5,0,29.2,25.0,31.2,31.7,32.4,0.0,0.0,0.0,0.0,0.0
+sensitivity (learning rate 1e-4),CPTAC,2 vs 6,10,0.0,0.0,1.1,12.4,-54.0,37.7,4,1,-4.4,2.2,2.8,5.3,2.2,0.0,0.0,0.0,0.0,0.0
+sensitivity (learning rate 1e-4),SMC 2018,2 vs 3,10,0.0,0.1,10.7,90.7,86.1,94.4,5,0,30.2,19.6,22.2,24.7,22.1,0.0,0.0,0.0,0.0,0.0
+sensitivity (learning rate 1e-4),SMC 2018,2 vs 5,10,0.0,0.1,13.3,92.5,89.6,95.1,5,0,31.0,22.3,24.0,26.6,24.8,0.0,0.0,0.0,0.0,0.0
+sensitivity (learning rate 1e-4),SMC 2018,2 vs 6,10,0.0,0.0,1.7,42.3,24.0,55.9,5,0,8.5,3.4,6.2,2.9,8.7,0.0,0.0,0.0,0.0,0.0

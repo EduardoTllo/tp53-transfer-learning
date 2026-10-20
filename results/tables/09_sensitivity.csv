@@ -1,9 +1,9 @@
-version,cohort,comparison,n,SD strategy a,SD strategy b,SD ratio (b / a),SD reduction (%),min reduction (%),max reduction (%),z exam 1,z exam 2,z exam 3,z exam 4,z exam 5,combined Z,p
-fine-tuning with learning rate 1e-4,CPTAC,2 vs 3,10,0.0087,0.1162,13.2848,92.4726,88.056,94.0345,28.2908,22.0208,27.7401,28.0435,27.9389,59.9419,0.0
-fine-tuning with learning rate 1e-4,CPTAC,2 vs 6,10,0.0087,0.01,1.1417,12.411,-53.9687,37.6864,-4.4026,2.198,2.8463,5.327,2.2103,3.6577,0.0003
-fine-tuning with learning rate 1e-4,SMC 2018,2 vs 3,10,0.0087,0.0935,10.7429,90.6915,86.0737,94.4191,30.1507,19.597,22.2122,24.6899,22.0578,53.0877,0.0
-fine-tuning with learning rate 1e-4,SMC 2018,2 vs 6,10,0.0087,0.0151,1.7335,42.3145,24.0124,55.8949,8.4649,3.3599,6.247,2.8759,8.7249,13.27,0.0
-strategy 6 with local patients at 25%,CPTAC,2 vs 6,10,0.0009,0.0081,8.6067,88.3811,73.0561,94.1966,13.3333,27.8353,19.0891,21.9237,28.1075,49.3228,0.0
-strategy 6 with local patients at 25%,SMC 2018,2 vs 6,10,0.0017,0.0117,6.7992,85.2925,76.5217,88.3398,21.1699,17.5145,21.2331,14.2744,20.4291,42.3158,0.0
-strategy 6 with local patients at 10%,CPTAC,2 vs 6,10,0.0009,0.0063,6.7186,85.1159,65.9206,92.6011,10.8413,25.6471,17.2247,19.5934,24.0572,43.5424,0.0
-strategy 6 with local patients at 10%,SMC 2018,2 vs 6,10,0.0017,0.0088,5.0926,80.3638,66.4289,84.981,18.342,14.2761,18.9331,10.7505,18.2643,36.0302,0.0
+version,cohort,comparison,n,SD strategy a,SD strategy b,SD ratio (b / a),SD reduction (%),min reduction (%),max reduction (%),exams significant for a (of 5),exams significant against a (of 5),z exam 1,z exam 2,z exam 3,z exam 4,z exam 5,p exam 1,p exam 2,p exam 3,p exam 4,p exam 5
+fine-tuning with learning rate 1e-4,CPTAC,2 vs 3,10,0.0087,0.1162,13.2848,92.4726,88.056,94.0345,5,0,28.2908,22.0208,27.7401,28.0435,27.9389,0.0,0.0,0.0,0.0,0.0
+fine-tuning with learning rate 1e-4,CPTAC,2 vs 6,10,0.0087,0.01,1.1417,12.411,-53.9687,37.6864,4,1,-4.4026,2.198,2.8463,5.327,2.2103,0.0,0.0282,0.0046,0.0,0.0273
+fine-tuning with learning rate 1e-4,SMC 2018,2 vs 3,10,0.0087,0.0935,10.7429,90.6915,86.0737,94.4191,5,0,30.1507,19.597,22.2122,24.6899,22.0578,0.0,0.0,0.0,0.0,0.0
+fine-tuning with learning rate 1e-4,SMC 2018,2 vs 6,10,0.0087,0.0151,1.7335,42.3145,24.0124,55.8949,5,0,8.4649,3.3599,6.247,2.8759,8.7249,0.0,0.0008,0.0,0.0042,0.0
+strategy 6 with local patients at 25%,CPTAC,2 vs 6,10,0.0009,0.0081,8.6067,88.3811,73.0561,94.1966,5,0,13.3333,27.8353,19.0891,21.9237,28.1075,0.0,0.0,0.0,0.0,0.0
+strategy 6 with local patients at 25%,SMC 2018,2 vs 6,10,0.0017,0.0117,6.7992,85.2925,76.5217,88.3398,5,0,21.1699,17.5145,21.2331,14.2744,20.4291,0.0,0.0,0.0,0.0,0.0
+strategy 6 with local patients at 10%,CPTAC,2 vs 6,10,0.0009,0.0063,6.7186,85.1159,65.9206,92.6011,5,0,10.8413,25.6471,17.2247,19.5934,24.0572,0.0,0.0,0.0,0.0,0.0
+strategy 6 with local patients at 10%,SMC 2018,2 vs 6,10,0.0017,0.0088,5.0926,80.3638,66.4289,84.981,5,0,18.342,14.2761,18.9331,10.7505,18.2643,0.0,0.0,0.0,0.0,0.0

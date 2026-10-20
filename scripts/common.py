@@ -1,4 +1,4 @@
-"""Code shared by notebooks 04 to 09: load the data, normalize it, build the network and compare SDs.
+"""Code shared by notebooks 04 to 09: load the data, normalize it, build the network and compare SDs (Pitman-Morgan).
 
 Some names are in Spanish (cargar = load, fuente = source, armar_red = build network,
 pesos_clase = class weights). They are kept as they are because the saved notebooks use them.
@@ -93,10 +93,3 @@ def pitman_morgan(a, b):
     # z with the Fisher transformation. It matches the t test, but it stays finite when p < 1e-308.
     return p, -np.arctanh(r) * np.sqrt(m - 3)
 
-
-def stouffer(zs):
-    """Stouffer method: joins the z of several exams as sum / √k. Returns Z and its two-sided p value."""
-    from scipy import stats
-
-    Z = np.sum(zs) / np.sqrt(len(zs))
-    return Z, 2 * stats.norm.sf(abs(Z))
