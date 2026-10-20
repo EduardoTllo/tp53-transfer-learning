@@ -86,7 +86,10 @@ flowchart LR
 
 Applying directly (strategies 1 and 4) uses **no local patient with a known TP53 status**. It is the same as n = 0. That is why it appears as a horizontal line in the figures.
 
-**The network.** A dense network (MLP): 18,040 genes → 1 hidden layer of 256 neurons (ReLU) → dropout 0.3 → 1 output neuron (sigmoid). It was chosen among 72 combinations with 5-fold cross-validation inside the source (notebook 06). Networks with 2 and 3 layers reached almost the same validation AUC (0.001 to 0.003 lower), so the smallest one was kept. The learning rate and epochs of fine-tuning were chosen in a **rehearsal** that used TCGA as source and METABRIC as a new cohort (notebook 07). CPTAC and SMC were not touched until notebook 08.
+**The network.** 
+- A dense network (MLP): 18,040 genes → 1 hidden layer of 256 neurons (ReLU) → dropout 0.3 → 1 output neuron (sigmoid).
+- It was chosen among 72 combinations with 5-fold cross-validation inside the source (notebook 06). Networks with 2 and 3 layers reached almost the same validation AUC (0.001 to 0.003 lower), so the smallest one was kept.
+- The learning rate and epochs of fine-tuning were chosen in a **rehearsal** that used TCGA as source and METABRIC as a new cohort (notebook 07). CPTAC and SMC were not touched until notebook 08.
 
 **Statistics.**
 - **Main outcome:** SD of the AUC across the 100 repetitions, on the same exam.
