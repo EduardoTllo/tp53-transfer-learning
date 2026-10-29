@@ -205,6 +205,9 @@ tp53-transfer-learning/
 | `07_rehearsal` | TCGA → METABRIC rehearsal to choose how to fine-tune | Khipu | ~2 h |
 | `08_network_experiment` | Strategies 1, 2 and 3 in CPTAC and SMC | Khipu | ~3.5 h |
 | `09_results` | Statistical tests and figures | Mac | ~30 s |
+| `10_stamp_genes` | Builds X with the 344 genes of the STAMP model | Mac | minutes |
+| `11_mlp_stamp_genes` | Extra analysis: our MLP with the 343 STAMP genes (search, rehearsal, strategies 1 and 2) | Khipu | not run yet |
+| `12_stamp_transfer` | The published STAMP model in CPTAC and SMC (apply directly, fine-tuning) and the comparison with our MLP | Khipu | not run yet |
 
 Before reading the notebooks, three things should be known:
 1. There is no notebook 03. It was a pilot with ElasticNet that notebook 05 replaced.

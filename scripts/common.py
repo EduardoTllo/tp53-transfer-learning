@@ -1,4 +1,4 @@
-"""Code shared by notebooks 04 to 09: load the data, normalize it, build the network and compare SDs (Pitman-Morgan).
+"""Code shared by notebooks 04 to 12: load the data, normalize it, build the network and compare SDs (Pitman-Morgan).
 
 Some names are in Spanish (cargar = load, fuente = source, armar_red = build network,
 pesos_clase = class weights). They are kept as they are because the saved notebooks use them.
@@ -15,9 +15,12 @@ DATA = ROOT / "data" / "processed"
 FILES = {"TCGA-BRCA": "tcga_brca", "METABRIC": "metabric", "CPTAC": "cptac", "SMC 2018": "smc_2018"}
 
 
-def cargar(cohorte):
-    """Load one cohort: log2 expression (patients × genes) and labels (1 = TP53 mutated), in the same order."""
-    x = pd.read_parquet(DATA / f"X_{FILES[cohorte]}.parquet")
+def cargar(cohorte, stamp=False):
+    """Load one cohort: log2 expression (patients × genes) and labels (1 = TP53 mutated), in the same order.
+
+    stamp=True loads the 344 genes of the STAMP model (notebook 10) instead of the 18,040 common genes.
+    """
+    x = pd.read_parquet(DATA / f"X_{'stamp_' if stamp else ''}{FILES[cohorte]}.parquet")
     y = pd.read_csv(DATA / f"y_{FILES[cohorte]}.csv", index_col=0).loc[x.index, "y"]
     return x, y
 
@@ -33,14 +36,14 @@ def zscore(x, ref):
     return ((x - mean) / sd).fillna(0).astype(np.float32)
 
 
-def fuente():
+def fuente(stamp=False):
     """Source data: TCGA-BRCA and METABRIC, each normalized with all its own patients, then joined.
 
     Returns X (DataFrame), y (Series) and the cohort of each row (Series).
     """
     parts = []
     for name in ("TCGA-BRCA", "METABRIC"):
-        x, y = cargar(name)
+        x, y = cargar(name, stamp)
         parts.append((zscore(x, x.index), y, pd.Series(name, index=x.index)))
     return tuple(pd.concat(p) for p in zip(*parts))
 
@@ -52,15 +55,16 @@ warnings.filterwarnings("ignore", message=".*encountered in matmul")
 os.environ.setdefault("KERAS_BACKEND", "torch")
 
 
-def armar_red(capas, dropout, tasa, optimizador):
-    """Dense network (MLP): 18,040 genes → hidden layers with ReLU and dropout → probability of TP53 mutated.
+def armar_red(capas, dropout, tasa, optimizador, genes=18040):
+    """Dense network (MLP): genes → hidden layers with ReLU and dropout → probability of TP53 mutated.
 
     `capas` (layers) is a list with the neurons of each hidden layer, for example [512, 128].
     `optimizador` (optimizer) is "adam" or "sgd" (SGD uses momentum 0.9).
+    `genes` is the number of input genes: 18,040, or 343 for the STAMP genes without TP53 (notebook 11).
     """
     import keras
 
-    layers = [keras.Input((18040,))]
+    layers = [keras.Input((genes,))]
     for n in capas:
         layers += [keras.layers.Dense(n, activation="relu"), keras.layers.Dropout(dropout)]
     layers.append(keras.layers.Dense(1, activation="sigmoid"))
@@ -68,6 +72,35 @@ def armar_red(capas, dropout, tasa, optimizador):
     model = keras.Sequential(layers)
     model.compile(optimizer=opt, loss="binary_crossentropy", metrics=[keras.metrics.AUC(name="auc")])
     return model
+
+
+STAMP_PT = ROOT / "data" / "raw" / "stamp" / "Example_model_BRCA_TP53_GCN.pt"
+STAMP_URL = ("https://raw.githubusercontent.com/gilbenc/STAMP_Signatures_in_Transcriptome_Associated_with_Mutated_Protein/"
+             "main/Use_STAMP_on_new_data/Example_model_BRCA_TP53_GCN.pt")
+
+
+def cargar_stamp():
+    """Published STAMP breast model (Ben Cohen et al. 2025): weights, graph, gene groups, genes and hyperparameters.
+
+    The file pickles the whole training object and names three classes of the STAMP code. We do not have that code,
+    so an empty class stands in for them. That is enough to read the saved attributes.
+    """
+    import sys
+    import types
+    import urllib.request
+
+    import torch
+
+    if not STAMP_PT.exists():
+        STAMP_PT.parent.mkdir(parents=True, exist_ok=True)
+        urllib.request.urlretrieve(STAMP_URL, STAMP_PT)
+    stub = type("Stub", (), {})
+    for name in ["models", "models.gcn", "models.gcn_layers"]:
+        sys.modules.setdefault(name, types.ModuleType(name))
+    sys.modules["models.gcn"].GCN = stub
+    sys.modules["models.gcn_layers"].GCNLayer = stub
+    sys.modules["models.gcn_layers"].EmbeddingLayer = stub
+    return torch.load(STAMP_PT, weights_only=False, map_location="cpu")
 
 
 def pesos_clase(y):
