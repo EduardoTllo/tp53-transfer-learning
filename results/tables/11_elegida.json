@@ -1,0 +1,11 @@
+{
+  "capas": [
+    256
+  ],
+  "tasa": 0.0003,
+  "lote": 16,
+  "dropout": 0.0,
+  "optimizador": "adam",
+  "epocas": 12,
+  "auc_validacion": 0.9425
+}

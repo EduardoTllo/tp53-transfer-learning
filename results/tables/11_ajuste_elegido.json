@@ -1,0 +1,11 @@
+{
+  "principal": {
+    "tasa": 1e-05,
+    "epocas": 10
+  },
+  "sensibilidad": {
+    "tasa": 0.0001,
+    "epocas": 10
+  },
+  "epocas_red_tcga": 11
+}
