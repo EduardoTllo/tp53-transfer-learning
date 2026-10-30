@@ -30,6 +30,7 @@ A local patient refers to a patient of the new cohort whose TP53 status is known
 2. **Adjusting that model with 10 to 80 local patients does not raise the AUC.** The change was 0.004 or less, with the network and with ElasticNet.
 3. **Fine-tuning a pretrained network is more stable than ElasticNet trained on the source + the local patients.** Both models learn from the source and from the same local patients. With 10 local patients, the SD of the AUC of fine-tuning was 91% smaller in CPTAC (0.0009 vs 0.0100) and 89% smaller in SMC 2018 (0.0017 vs 0.0151). The difference was significant in each of the 5 exams of both cohorts (Pitman-Morgan test, p < 0.05).
 4. **Training only with the local patients gives the lowest AUC and the most variable result.** It did not reach the AUC of applying the source model directly, even with 40 (CPTAC) or 80 (SMC) patients.
+5. **The published STAMP model [1] does not vary more than our network after fine-tuning.** Its SD was smaller in most exams. But all SDs were below 0.002, because the chosen fine-tuning setting barely changes either network. Applied directly, STAMP gave an AUC close to our network in CPTAC (0.925 vs 0.933) and lower in SMC 2018 (0.811 vs 0.866).
 
 ## Data
 
@@ -153,6 +154,32 @@ With the main setting, the four primary comparisons were significant in each of 
 
 In CPTAC, the models that use the source detect about 15 of the 16 mutated tumors (sensitivity 0.91). In SMC they detect only 2 of every 3 (sensitivity 0.66). In other words, one in three mutated tumors of SMC is classified as not mutated. That is the main reason of the lower AUC in SMC.
 
+### Comparison with the published STAMP model
+
+To compare our approach with a published model, the STAMP graph network [1] was used with its published weights (notebooks 10 to 12). STAMP was trained on 625 TCGA patients with 344 genes: TP53 and its neighbors in HumanNet v2. It has 33,002 weights. The comparison was done in the following way:
+1. STAMP uses its 344 genes, including TP53, because its weights were trained that way. A gene missing in a cohort enters as 0 after the z-score, as STAMP did in METABRIC. SOD2 is missing in CPTAC; SMC has the 344 genes.
+2. STAMP was applied directly (as strategy 1) and fine-tuned with the n local patients (as strategy 2), with the same exams, repetitions and z-score as our network. Its learning rate and epochs were chosen with the same rehearsal and the same rule as our network (notebook 07). The rehearsal chose a learning rate of 1e-5 and 10 epochs, the same as for our network. The sensitivity setting is a learning rate of 1e-4.
+3. As an extra analysis, our MLP was also trained with the 343 STAMP genes without TP53 (notebook 11). Its architecture was chosen again with the search of notebook 06: 1 hidden layer of 256 neurons, Adam, learning rate 3e-4, 12 epochs, 88,321 weights. Its validation AUC was 0.943, the same as the MLP with 18,040 genes.
+
+![STAMP vs our network](results/figures/12_stamp_vs_mlp.png)
+
+**Figure 6. Our network (18,040 and 343 genes) vs the published STAMP model.** Row 1: AUC of each model applied directly, in each exam (dotted line = mean of the 5 exams). Rows 2 and 3: SD of the AUC across repetitions after fine-tuning, mean of the 5 exams, with the main setting (learning rate 1e-5) and the sensitivity setting (1e-4). The y axes of rows 2 and 3 have different scales.
+
+**Table 3. Mean AUC and SD across repetitions with 10 local patients (main setting).** In the last column, in how many of the 5 exams STAMP had the smaller SD.
+
+| Cohort | Model | Apply directly | Fine-tuning | SD | STAMP SD smaller |
+|---|---|---|---|---|---|
+| CPTAC | MLP 18,040 genes | 0.933 | 0.933 | 0.0009 | 3 of 5 |
+| CPTAC | MLP 343 genes | 0.928 | 0.927 | 0.0011 | 3 of 5 |
+| CPTAC | STAMP | 0.925 | 0.925 | 0.0005 | |
+| SMC 2018 | MLP 18,040 genes | 0.866 | 0.867 | 0.0017 | 5 of 5 |
+| SMC 2018 | MLP 343 genes | 0.863 | 0.863 | 0.0019 | 4 of 5 |
+| SMC 2018 | STAMP | 0.811 | 0.811 | 0.0008 | |
+
+The SD of STAMP was smaller than the SD of our network in most exams, also with the sensitivity setting (STAMP 0.003, our network 0.006 to 0.009 at n = 10). But the SDs of the main setting are below 0.002 in every model. The reason is that a learning rate of 1e-5 barely changes the networks, and in two exams of CPTAC STAMP did not change at all (SD = 0). That is why the Pitman-Morgan test is significant even though the difference has no practical weight. STAMP is also more stable because its fine-tuning has no randomness: it uses all local patients in one batch and has no dropout.
+
+In AUC, STAMP was close to our network in CPTAC and about 0.05 lower in SMC, mainly in exams 2 and 3 (0.757 and 0.794). With its own z-score of all METABRIC patients, STAMP reached 0.900 in METABRIC, the same as in our replication of STAMP. With our exams, where the z-score uses only the patients outside the exam, it reached 0.849. The MLP with 343 genes gave almost the same AUC as the MLP with 18,040 genes. In other words, the STAMP genes carry almost all the signal that our network uses.
+
 ## Do we answer the questions?
 
 | Question | Answer |
@@ -161,6 +188,7 @@ In CPTAC, the models that use the source detect about 15 of the 16 mutated tumor
 | How many local patients does it need? | **None to keep that AUC.** With 10 to 80 local patients, the AUC changed 0.004 or less. |
 | Is fine-tuning more stable than training from scratch or a local ElasticNet? | **Yes.** Its SD was 91–99% smaller, with an AUC equal or higher. |
 | Does the network reach a higher AUC than classical models? | **No.** Network and ElasticNet gave the same AUC when applied directly. In stability, fine-tuning varied less than ElasticNet source + local (89–91%, or 12–42% with the sensitivity setting). |
+| Is our network more stable than the published STAMP model? | **No.** After fine-tuning, STAMP varied less in most exams. But with the main setting every SD was below 0.002, so the difference has no practical weight. |
 | Without pretraining, how many patients reach the AUC of the source model? | **More than 40 in CPTAC and more than 80 in SMC.** The curve of the network from scratch was still going up in CPTAC. |
 
 ## Limitations
@@ -171,7 +199,8 @@ The results have the following limits:
 3. The main fine-tuning setting barely changes the network, and part of its stability comes from that. So the sensitivity setting (learning rate 1e-4) is the more cautious estimate.
 4. The networks are not well calibrated. They give probabilities very close to 0 or 1.
 5. The normalization of the new cohort used 65 (CPTAC) and 127 (SMC) patients without labels. Fewer patients were not tested. So if a hospital has fewer patients to normalize, the result could change.
-6. The analysis by subtype (PAM50 or ER), networks with more layers and fewer input genes were not run yet.
+6. The analysis by subtype (PAM50 or ER) and networks with more layers were not run yet. Fewer input genes were tested only with the 343 STAMP genes.
+7. STAMP was trained on TCGA patients only and with TP53 as an input. So its comparison with our network is a comparison with a published reference, not a comparison under the same conditions.
 
 ## Repository layout
 
@@ -206,12 +235,12 @@ tp53-transfer-learning/
 | `08_network_experiment` | Strategies 1, 2 and 3 in CPTAC and SMC | Khipu | ~3.5 h |
 | `09_results` | Statistical tests and figures | Mac | ~30 s |
 | `10_stamp_genes` | Builds X with the 344 genes of the STAMP model | Mac | minutes |
-| `11_mlp_stamp_genes` | Extra analysis: our MLP with the 343 STAMP genes (search, rehearsal, strategies 1 and 2) | Khipu | not run yet |
-| `12_stamp_transfer` | The published STAMP model in CPTAC and SMC (apply directly, fine-tuning) and the comparison with our MLP | Khipu | not run yet |
+| `11_mlp_stamp_genes` | Extra analysis: our MLP with the 343 STAMP genes (search, rehearsal, strategies 1 and 2) | Khipu | ~4.5 h |
+| `12_stamp_transfer` | The published STAMP model in CPTAC and SMC (apply directly, fine-tuning) and the comparison with our MLP | Khipu | ~4 h |
 
 Before reading the notebooks, three things should be known:
 1. There is no notebook 03. It was a pilot with ElasticNet that notebook 05 replaced.
-2. Notebooks 01, 02 and 05 to 08 were run before the repository was translated. Their explanations are in English, but some code comments, printed text and figure labels in the saved outputs are in Spanish. The results are the same.
+2. Notebooks 01, 02 and 05 to 08 were run before the repository was translated. Their explanations are in English, but some code comments, printed text and figure labels in the saved outputs are in Spanish. The results are the same. The labels of Figure 6 (notebook 12) are also in Spanish.
 3. Column names inside the data files are in Spanish: `cohorte` = cohort, `examen` = exam, `estrategia` = strategy, `repeticion` = repetition, `muestra` = sample, `peso_locales` = weight of the local patients, `variante` = fine-tuning setting (`principal` = main, `sensibilidad` = sensitivity).
 
 ## How to reproduce
